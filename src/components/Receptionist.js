@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from './api';;
 
 const Receptionist = () => {
   const [patients, setPatients] = useState([]);
@@ -16,7 +16,7 @@ const Receptionist = () => {
       return;
     }
 
-    const response = await axios.get("http://localhost:3001/patients", {
+    const response = await api.get("http://localhost:3001/patients", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setPatients(response.data);
@@ -29,7 +29,7 @@ const Receptionist = () => {
 
     try {
       if (editingPatientId) {
-        await axios.put(`http://localhost:3001/patients/${editingPatientId}`, {
+        await api.put(`http://localhost:3001/patients/${editingPatientId}`, {
           patient: {
             name,
             age,
@@ -39,7 +39,7 @@ const Receptionist = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post("http://localhost:3001/patients", {
+        await api.post("http://localhost:3001/patients", {
           patient: {
             name,
             age,
@@ -67,7 +67,7 @@ const Receptionist = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:3001/patients/${id}`, {
+    await api.delete(`http://localhost:3001/patients/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     fetchPatients();
