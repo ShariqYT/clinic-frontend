@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from './api';;
+import axios from "axios";
 import { Bar } from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js';
 
@@ -17,7 +17,7 @@ const Doctor = () => {
         window.location.href = "/";
         return;
       }
-      const response = await api.get("http://localhost:3001/patients", {
+      const response = await axios.get("http://localhost:3001/patients", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPatients(response.data);

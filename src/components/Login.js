@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from './api';;
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -11,7 +11,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("http://localhost:3001/login", { email, password });
+      const response = await axios.post("http://localhost:3001/login", { email, password });
       localStorage.setItem("token", response.data.token);
       toast.success("Login successful");
       navigate(response.data.user.role === "receptionist" ? "/receptionist" : "/doctor");

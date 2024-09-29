@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from './api';;
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -12,7 +12,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            await api.post("http://localhost:3001/users", { email, password, role });
+            await axios.post("http://localhost:3001/users", { email, password, role });
             toast.success("Signup successful");
             navigate("/");
         } catch (err) {
